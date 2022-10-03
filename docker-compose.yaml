@@ -1,0 +1,54 @@
+version: "3"
+services:
+  nginx:
+    image: nginx:1.14
+    depends_on:
+      - php-fpm
+    links:
+      - php-fpm
+    env_file:
+      - ./.env
+    ports:
+      - ${NGINX_API_PORT}:8080
+    volumes:
+      - ./docker/nginx/:/etc/nginx/conf.d/
+      - .:/var/www/project
+
+  database:
+    image: mysql:8
+    ports:
+      - ${DB_EXPOSED_PORT}:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+
+  php-fpm:
+    build: docker/php
+    depends_on:
+      - database
+    links:
+      - database
+    volumes:
+      - ./api:/var/www/project/api
+      - ./docker/cron/:/etc/cron.d
+      - ./docker/supervisord/:/etc/supervisor
+    ports:
+      - ${SV_EXPOSED_PORT}:9001
+    working_dir: /var/www/project/api
+    env_file:
+      - ./.env
+
+  mail:
+    image: mailhog/mailhog
+    logging:
+      driver: 'none'  # disable saving logs
+    ports:
+      - ${SMTP_EXPOSED_PORT}:1025 # smtp server
+      - ${MAIL_EXPOSED_PORT}:8025 # web ui
+
+volumes:
+  data: { }

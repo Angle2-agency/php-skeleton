@@ -1,0 +1,374 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "documentation",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/": {},
+        "/auth/sign-in": {
+            "post": {
+                "tags": [
+                    "Authorization"
+                ],
+                "summary": "Sign In",
+                "operationId": "auth.sign-in",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "some@email.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "somepass"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthData"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedException"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "UnprocessableEntityException",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnprocessableEntityException"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/sign-in-token": {
+            "post": {
+                "tags": [
+                    "Authorization"
+                ],
+                "summary": "Sign in by token",
+                "operationId": "auth.sign-in-token",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "token": {
+                                        "type": "string",
+                                        "example": "sdasdasdadasdasd"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthData"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedException"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "UnprocessableEntityException",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnprocessableEntityException"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/sign-up": {
+            "post": {
+                "tags": [
+                    "Authorization"
+                ],
+                "summary": "Sign up",
+                "operationId": "auth.sign-up",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "some@email.com"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Smith"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthData"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedException"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "UnprocessableEntityException",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnprocessableEntityException"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/forgot-password": {
+            "post": {
+                "tags": [
+                    "Authorization"
+                ],
+                "summary": "Set request of password forgot",
+                "operationId": "auth.forgot-password",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "some@email.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "UnauthorizedException",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedException"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "UnprocessableEntityException",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnprocessableEntityException"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/confirm-email": {
+            "get": {
+                "tags": [
+                    "Authorization"
+                ],
+                "summary": "Email confirmation",
+                "operationId": "auth.confirm-email",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Verification token",
+                        "required": true,
+                        "example": "qweadcasdcacadc"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "UnauthorizedException",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedException"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "UnprocessableEntityException",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnprocessableEntityException"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AuthData": {
+                "title": "Authorization data",
+                "properties": {
+                    "token": {
+                        "type": "string",
+                        "example": "wMWU5OTAiLCJpYXQiOjE2NjE1MTM2NTguMjI3NDk4LCJuYmYiOjE2NjE1MT"
+                    },
+                    "tokenType": {
+                        "type": "string",
+                        "example": "Bearer"
+                    }
+                },
+                "type": "object"
+            },
+            "UnprocessableEntityException": {
+                "title": "Unprocessable entity error",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Validation exception"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "properties": {
+                                "detail": {
+                                    "type": "string",
+                                    "example": "Field name is required"
+                                },
+                                "source": {
+                                    "type": "string",
+                                    "example": "name"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "NotFoundHttpException": {
+                "title": "Not Found error",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "404"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Resource not found"
+                    }
+                },
+                "type": "object"
+            },
+            "EmptyResponse": {
+                "title": "Empty success response",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "204"
+                    }
+                },
+                "type": "object"
+            },
+            "UnauthorizedException": {
+                "title": "Unauthorized error",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "401"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Unauthorized"
+                    }
+                },
+                "type": "object"
+            },
+            "Redirect": {
+                "title": "Redirect response"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
